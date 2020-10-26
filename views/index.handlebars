@@ -1,0 +1,46 @@
+<div class="row">
+    <h1>Registration Numbers</h1>
+
+    <div class="textboxName">
+        <form action="/" method="POST">
+            <strong>Registration Number: </strong>
+            <input type="text" name="regNumber" class="regNum" placeholder="eg: CAA 123-321">
+    </div>
+
+    <br>
+
+    <div>
+        <button type="submit" class="add">Add</button>
+    </div>
+
+    <br>
+
+    <div class="radioGreet">
+        <input type="radio" name="town" value="Select All">Select All
+        <input type="radio" name="town" value="Cape Town">Cape Town
+        <input type="radio" name="town" value="Paarl">Paarl
+        <input type="radio" name="town" value="Bellville">Bellville
+
+    </div>
+
+    </form>
+
+
+    {{!-- <form action="/" method="POST">
+        <label for="place">Select the town:</label>
+        <select name="place" id="place">
+            <option value="Select">Select</option>
+            <option value="Cape Town">Cape Town</option>
+            <option value="Paarl">Paarl</option>
+            <option value="Bellville">Bellville</option>
+            <option value="Other">Other</option>
+        </select>
+    </form> --}}
+
+    <br>
+
+    <div>
+        <a href="/reset"></a>
+        <button type="submit" class="Rest">Reset</button>
+    </div>
+</div>
