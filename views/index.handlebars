@@ -25,17 +25,13 @@
 
     </form>
 
-
-    {{!-- <form action="/" method="POST">
-        <label for="place">Select the town:</label>
-        <select name="place" id="place">
-            <option value="Select">Select</option>
-            <option value="Cape Town">Cape Town</option>
-            <option value="Paarl">Paarl</option>
-            <option value="Bellville">Bellville</option>
-            <option value="Other">Other</option>
-        </select>
-    </form> --}}
+    <div class="">
+        {{#each reg}}
+        <li>
+{{this.reg}}
+        </li>
+        {{/each}}
+    </div>
 
     <br>
 

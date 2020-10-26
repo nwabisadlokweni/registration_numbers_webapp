@@ -6,6 +6,8 @@ const session = require('express-session');
 const regFactory = require('./registration_number');
 const pg = require("pg");
 const Pool = pg.Pool;
+const _ = require("lodash");
+
 
 const app = express();
 
@@ -40,13 +42,14 @@ app.get('/', function (req, res) {
 })
 
 app.post('/', async function (req, res) {
-    const reg = req.body.regNumber;
+    const reg = _.upperCase(req.body.regNumber);
     if (!reg) {
         req.flash('error', "Please enter your registraion number");
     }
     else{
         var regInsert = await registration.insert(reg); 
     }
+    
     res.render('index', {
         message: regInsert
     })

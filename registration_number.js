@@ -1,17 +1,17 @@
 module.exports = function regFactory(pool) {
 
     async function setReg(regList) {
-        var check = await pool.query('select registration from regNumber where registration = $1', [regList]);
+        var check = await pool.query('select reg from regNumbers where reg = $1', [regList]);
         return check;
     }
 
     async function getReg() {
-        var list = await pool.query('select * from regNumber');
+        var list = await pool.query('select * from regNumbers');
         return list.rows;
     }
 
     async function insert(reg) {
-        var inserting = await pool.query('insert into regNumber (registration, towns) values ($1, $2)', [reg, 1])
+        var inserting = await pool.query('insert into regNumbers (reg, startsWith) values ($1, $2)', [reg, 1])
         return inserting;
     }
 
