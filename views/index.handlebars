@@ -1,8 +1,18 @@
 <div class="row">
     <h1>Registration Numbers</h1>
 
+    <div class="message"></div>
+
+    {{#if message}}
+    <div class="">{{message}}</div>
+    {{else}}
+    <div class="">
+        <p class='flash'> {{messages.error}}</p>
+    </div>
+    {{/if}}
+
     <div class="textboxName">
-        <form action="/" method="POST">
+        <form action="reg_numbers" method="POST">
             <strong>Registration Number: </strong>
             <input type="text" name="regNumber" class="regNum" placeholder="eg: CAA 123-321">
     </div>
@@ -11,6 +21,14 @@
 
     <div>
         <button type="submit" class="add">Add</button>
+    </div>
+
+    <div class="">
+        {{#each theNumbers}}
+        <li>
+            {{this.reg}}
+        </li>
+        {{/each}}
     </div>
 
     <br>
@@ -23,20 +41,19 @@
 
     </div>
 
-    </form>
+    <br>
 
-    <div class="">
-        {{#each reg}}
-        <li>
-{{this.reg}}
-        </li>
-        {{/each}}
+    <div>
+        <button type="submit" class="Show">Show</button>
     </div>
+
+    </form>
 
     <br>
 
     <div>
         <a href="/reset"></a>
-        <button type="submit" class="Rest">Reset</button>
+        <button type="submit" class="rest">Reset</button>
     </div>
+
 </div>

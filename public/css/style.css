@@ -11,14 +11,24 @@
 
 .button {
 	margin: 1em;
+	float: right;
+	
 }
 
 .flash {
 	color : red;
 }
+.regNumber {
+	background-color: yellow;
+	border: 0.1em solid;
+	border-radius: 0.25em;
+	padding: 1em;
+	margin: 0.5em;
+	width: 7em;
+	text-align: center;
+	font-weight: bold;
+	float: left;
 
-.textbox, .counter {
-display: inline;
 }
 
 .textBox{

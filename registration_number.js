@@ -15,15 +15,15 @@ module.exports = function regFactory(pool) {
         return inserting;
     }
 
-    // async function update(updated) {
-    //     var updating = await pool.query('update regNumber set counter=counter+1 where name=$1', [updated]);
-    //     return updating.rowCount;
-    // }
+    async function display() {
+        var displaying = await pool.query('select reg from regNumbers');
+        return displaying;
+    }
 
 async function enter(theReg) {
     var myReg = await setReg(theReg);
     if (myReg.rowCount > 0) {
-        await update(theReg);
+        await display(theReg);
     } else {
         await insert(theReg);
     }
@@ -39,6 +39,7 @@ async function enter(theReg) {
         getReg,
         insert,
         enter,
+        display,
         reset
     }
 }

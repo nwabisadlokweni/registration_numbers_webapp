@@ -41,31 +41,36 @@ app.get('/', function (req, res) {
     res.render('index')
 })
 
-app.post('/', async function (req, res) {
+app.post('/reg_numbers', async function (req, res) {
     const reg = _.upperCase(req.body.regNumber);
     if (!reg) {
-        req.flash('error', "Please enter your registraion number");
+        req.flash('error', "Please enter your registration number");
+    }
+    else if (!reg) {
+        req.flash('error', "You have already entered this registration number");
     }
     else{
-        var regInsert = await registration.insert(reg); 
+        var regInsert = await registration.enter(reg); 
     }
-    
+    const theNumbers = await registration.getReg();
+
     res.render('index', {
-        message: regInsert
+        message: regInsert,
+        theNumbers
     })
 
 })
 
 app.get('registrations', async function (req, res) {
-    const theNumbers = await greetings.getReg();
-    res.render('registration', { registration: theNumbers });
+    console.log(getNumbers)
+    res.render('registration', { });
 })
 
 
 
 
 app.get(async function reset(req, res) {
-    await greetings.reset()
+    await registration.reset()
     res.redirect('/');
 })
 
