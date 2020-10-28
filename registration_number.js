@@ -10,8 +10,11 @@ module.exports = function regFactory(pool) {
         return list.rows;
     }
 
-    async function insert(reg) {
-        var inserting = await pool.query('insert into regNumbers (reg, startsWith) values ($1, $2)', [reg, 1])
+    async function insert(regInput) {
+        const regPlate = regInput.substring(0, 2).trim();
+        const townId = await pool.query('select id from towns where startsWith = $1', [regPlate]);
+        const id = townId.rows[0].id
+        var inserting = await pool.query('insert into regNumbers (reg, key_name) values ($1, $2)', [regInput, id])
         return inserting;
     }
 
@@ -20,17 +23,32 @@ module.exports = function regFactory(pool) {
         return displaying;
     }
 
-async function enter(theReg) {
-    var myReg = await setReg(theReg);
-    if (myReg.rowCount > 0) {
-        await display(theReg);
-    } else {
-        await insert(theReg);
+    async function enter(theReg) {
+        var myReg = await setReg(theReg);
+        if (myReg.rowCount > 0) {
+            await display(theReg);
+        } else {
+            await insert(theReg);
+        }
+
+        // if (place === 'Select All') {
+        //     return "Select All, " + theReg;
+        // }
+
+        // if (place === 'Cape Town') {
+        //     return "CA, " + theReg;
+        // }
+
+        // if (place === 'Bellville') {
+        //     return "CY, " + theReg;
+        // }
+        // if (place === 'Paarl') {
+        //     return "CJ, " + theReg;
+        // }
     }
-}
 
     async function reset() {
-        var del = await pool.query('delete from reg_Number');
+        var del = await pool.query('delete from regNumbers');
         return del;
     }
 
@@ -43,6 +61,8 @@ async function enter(theReg) {
         reset
     }
 }
+//when you want to filter the towns...
+//SELECT * FROM regNumber WHERE reg = '1'; -------- then we know its Cape Town
 
-//
-//SELECT FirstName, UPPER(startsWith) AS startsWith FROM regNnmber;
+
+

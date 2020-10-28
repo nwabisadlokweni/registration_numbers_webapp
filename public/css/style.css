@@ -1,42 +1,37 @@
 .container {
     color: black;
-    background-color: cornsilk;
-	border: 3px solid rgb(110, 13, 110);
+    background-color: beige;
+	border: 3px solid black;
 	margin: auto;
 	padding: 0.5em;
 	font-style: normal;
 	font-size: large;
 	font-weight: bold;
+	display: flex;
   }
 
 .button {
 	margin: 1em;
-	float: right;
+	padding: 1em;
 	
 }
 
 .flash {
 	color : red;
 }
-.regNumber {
+
+.reg {
+	
 	background-color: yellow;
 	border: 0.1em solid;
-	border-radius: 0.25em;
-	padding: 1em;
+	border-radius: 0.4em;
+	padding: 0.5em;
 	margin: 0.5em;
 	width: 7em;
 	text-align: center;
 	font-weight: bold;
 	float: left;
 
-}
-
-.textBox{
-border: 0.01em solid;
-border-radius: 0.25;
-padding: 1em;
-margin: 0.5em;
-width: 15em;
 }
 
 @media(min-width: 1024px) {

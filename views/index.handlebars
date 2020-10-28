@@ -15,45 +15,44 @@
         <form action="reg_numbers" method="POST">
             <strong>Registration Number: </strong>
             <input type="text" name="regNumber" class="regNum" placeholder="eg: CAA 123-321">
+            <button type="submit" class="add">Add</button>
     </div>
 
     <br>
 
-    <div>
-        <button type="submit" class="add">Add</button>
-    </div>
-
-    <div class="">
-        {{#each theNumbers}}
-        <li>
-            {{this.reg}}
-        </li>
-        {{/each}}
-    </div>
-
-    <br>
-
-    <div class="radioGreet">
+    <div class="filter">
+        <strong>Filter by towns: </strong>
         <input type="radio" name="town" value="Select All">Select All
-        <input type="radio" name="town" value="Cape Town">Cape Town
-        <input type="radio" name="town" value="Paarl">Paarl
-        <input type="radio" name="town" value="Bellville">Bellville
-
-    </div>
-
-    <br>
-
-    <div>
+        <input type="radio" name="town" value="CA">Cape Town
+        <input type="radio" name="town" value="CJ">Paarl
+        <input type="radio" name="town" value="CY">Bellville
         <button type="submit" class="Show">Show</button>
     </div>
 
     </form>
 
-    <br>
+    <hr>
 
-    <div>
-        <a href="/reset"></a>
-        <button type="submit" class="rest">Reset</button>
+    {{!-- <div class="reg">
+				<!-- <i>Reg numbers to be added here...</i> -->
+
+			</div> --}}
+
+    <div class="">
+        {{#each theNumbers}}
+        <ul class="reg">
+            {{this.reg}}
+        </ul>
+        {{/each}}
     </div>
+
+    <br>
+<form action="/reset" method="GET">
+     <div>
+        <a href="/reset"></a>
+        <button type="submit" class="reset">Reset</button>
+    </div>
+</form>
+   
 
 </div>
