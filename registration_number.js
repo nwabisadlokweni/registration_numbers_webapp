@@ -1,13 +1,13 @@
 module.exports = function regFactory(pool) {
-
-    async function setReg(regList) {
-        var check = await pool.query('select reg from regNumbers where reg = $1', [regList]);
-        return check;
-    }
-
     async function getReg() {
         var list = await pool.query('select * from regNumbers');
         return list.rows;
+    }
+
+    async function getValues(selectedTown) {
+        const value = await pool.query('select id from towns where startsWith = $1', [selectedTown]); //CJ, CA, CY VALUE
+        Console.log(value)
+        return value;
     }
 
     async function insert(regInput) {
@@ -18,33 +18,36 @@ module.exports = function regFactory(pool) {
         return inserting;
     }
 
-    async function display() {
-        var displaying = await pool.query('select reg from regNumbers');
-        return displaying;
+    // async function display() {
+    //     var displaying = await pool.query('select reg from regNumbers');
+    //     return displaying;
+    // }
+
+    async function checkReg(check) {
+        var myReg = await getReg(check);
+        if (myReg.rows > 0) {
+            await getReg(check);
+        } else {
+            await insert(ceck);
+        }
+        return myReg.rows;
     }
 
-    async function enter(theReg) {
-        var myReg = await setReg(theReg);
-        if (myReg.rowCount > 0) {
-            await display(theReg);
-        } else {
-            await insert(theReg);
-        }
+    // async function enter(theReg) {
+    //     var myReg = await setReg(theReg);
+    //     if (myReg.rowCount > 0) {
+    //         await display(theReg);
+    //     } else {
+    //         await insert(theReg);
+    //     }
+    // }
 
-        // if (place === 'Select All') {
-        //     return "Select All, " + theReg;
-        // }
-
-        // if (place === 'Cape Town') {
-        //     return "CA, " + theReg;
-        // }
-
-        // if (place === 'Bellville') {
-        //     return "CY, " + theReg;
-        // }
-        // if (place === 'Paarl') {
-        //     return "CJ, " + theReg;
-        // }
+    async function displayFilter(filter) {
+        const regPlate = filter.substring(0, 2).trim();
+        const townId = await pool.query('select id from towns where startsWith = $1', [regPlate]);
+        const id = townId.rows[0].id
+        const filtering = await pool.query('SELECT reg FROM regNumbers WHERE key_name = $1', [id]);
+        return filtering.rows
     }
 
     async function reset() {
@@ -53,16 +56,13 @@ module.exports = function regFactory(pool) {
     }
 
     return {
-        setReg,
         getReg,
         insert,
-        enter,
-        display,
-        reset
+        //  enter,
+        // display,
+        displayFilter,
+        reset,
+        getValues,
+        checkReg
     }
 }
-//when you want to filter the towns...
-//SELECT * FROM regNumber WHERE reg = '1'; -------- then we know its Cape Town
-
-
-

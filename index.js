@@ -43,34 +43,43 @@ app.get('/', function (req, res) {
 
 app.post('/reg_numbers', async function (req, res) {
     const reg = _.upperCase(req.body.regNumber);
-    const theNuMbers = await registration.enter(reg);
+    //const theNuMbers = await registration.enter(reg);
+    // console.log(theNuMbers)
     if (!reg) {
         req.flash('error', "Please enter your registration number");
     }
-    else if (theNuMbers) {
-        req.flash('error', "You have already entered this registration number");
-    }
+    // else if (theNuMbers) {
+    //      req.flash('error', "You have already entered this registration number");
+    //  }
     else {
-        var regInsert = await registration.enter(reg);
-   
- }  
- 
-   const theNumbers = await registration.getReg();
+        var regInsert = await registration.insert(reg);
+    }
+    const theNumbers = await registration.getReg();
 
     res.render('index', {
-        message: regInsert,
-        theNumbers
+        regInsert,
+        numbers: theNumbers
     })
 
 })
 
-app.get('registrations', async function (req, res) {
-   // console.log(getNumbers)
-    res.render('registration');
+app.post('/filter', async function (req, res) {
+    // console.log(getNumbers)
+    // const numberPlate = req.params.numberPlate;
+    var towns = req.body.town
+    //console.log(towns)
+    if (!towns && "") {
+        req.flash('error', 'Please select a town');
+    }
+    else {
+        var filteredTown = await registration.displayFilter(towns)
+        // console.log(filteredTown)
+    }
+    res.render('index', {
+        //  message : filteredTown,
+        numbers: filteredTown
+    })
 })
-
-
-
 
 app.get('/reset', async function (req, res) {
     await registration.reset()

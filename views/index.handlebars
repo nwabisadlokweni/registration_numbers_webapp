@@ -3,6 +3,8 @@
 
     <div class="message"></div>
 
+    <div class="numbers"></div>
+
     {{#if message}}
     <div class="">{{message}}</div>
     {{else}}
@@ -15,31 +17,31 @@
         <form action="reg_numbers" method="POST">
             <strong>Registration Number: </strong>
             <input type="text" name="regNumber" class="regNum" placeholder="eg: CAA 123-321">
+
             <button type="submit" class="add">Add</button>
+        </form>
     </div>
 
     <br>
 
     <div class="filter">
-        <strong>Filter by towns: </strong>
-        <input type="radio" name="town" value="Select All">Select All
-        <input type="radio" name="town" value="CA">Cape Town
-        <input type="radio" name="town" value="CJ">Paarl
-        <input type="radio" name="town" value="CY">Bellville
-        <button type="submit" class="Show">Show</button>
-    </div>
+        <form action="filter" method="POST">
+            <strong>Filter by towns: </strong>
+            <input type="radio" name="town" value="Select All">Select All
+            <input type="radio" name="town" value="CA">Cape Town
+            <input type="radio" name="town" value="CJ">Paarl
+            <input type="radio" name="town" value="CY">Bellville
 
-    </form>
+            <button type="submit" class="Show">Show</button>
+        </form>
+    </div>
 
     <hr>
 
-    {{!-- <div class="reg">
-				<!-- <i>Reg numbers to be added here...</i> -->
-
-			</div> --}}
+    <br>
 
     <div class="">
-        {{#each theNumbers}}
+        {{#each numbers}}
         <ul class="reg">
             {{this.reg}}
         </ul>
@@ -47,12 +49,13 @@
     </div>
 
     <br>
-<form action="/reset" method="GET">
-     <div>
-        <a href="/reset"></a>
-        <button type="submit" class="reset">Reset</button>
+    <br>
+
+    <div>
+        <form action="/reset" method="GET">
+            <a href="/reset"></a>
+            <button type="submit" class="reset">Reset</button>
+        </form>
     </div>
-</form>
-   
 
 </div>

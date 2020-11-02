@@ -1,5 +1,6 @@
 const assert = require('assert');
 const regFactory = require('../registration_number');
+
 const pg = require("pg");
 const Pool = pg.Pool;
 
@@ -15,23 +16,23 @@ describe('The basic database web app', function () {
     beforeEach(async function () {
         // clean the tables before each test run
         await pool.query("delete from regNumbers;");
-        await pool.query("delete from towns;");
+        //await pool.query("delete from towns;");
     });
 
-    it('should insert names in the db test', async function () {
+    it('should insert registration numbers in the db test', async function () {
         // //the Factory Function is called regFactory
-        // let registration_number = regFactory(pool);
-
-        // await registration_number.insert("Nwabisa");
+        let registration_number = regFactory(pool);
+var regNumber = await registration_number.display();
+        await registration_number.insert("CA 123");
         // await registration_number.insert("Zola");
         // await registration_number.insert("Unalo");
         // await registration_number.insert("Sino");
         // await registration_number.insert("Makho");
         // await registration_number.insert("Andre");
 
-        // var name = await registration_number.counter();
+        
 
-        // assert.equal(6, name);
+        assert.equal("CA 123", regNumber);
     });
 
     after(function () {
