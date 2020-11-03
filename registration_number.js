@@ -6,7 +6,7 @@ module.exports = function regFactory(pool) {
 
     async function getValues(selectedTown) {
         const value = await pool.query('select id from towns where startsWith = $1', [selectedTown]); //CJ, CA, CY VALUE
-        Console.log(value)
+       // Console.log(value)
         return value;
     }
 
@@ -43,6 +43,10 @@ module.exports = function regFactory(pool) {
     // }
 
     async function displayFilter(filter) {
+        if(filter === "Select All"){
+            var all = await pool.query('select * from regNumbers');
+            return all.rows;
+        }
         const regPlate = filter.substring(0, 2).trim();
         const townId = await pool.query('select id from towns where startsWith = $1', [regPlate]);
         const id = townId.rows[0].id

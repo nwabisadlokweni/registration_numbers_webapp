@@ -37,27 +37,32 @@ app.use(session({
 // initialise the flash middleware
 app.use(flash());
 
-app.get('/', function (req, res) {
-    res.render('index')
-})
+app.get('/', async function (req, res) {
+    const theNumbers = await registration.getReg();
+
+    res.render('index', {
+        numbers: theNumbers
+    });
+});
 
 app.post('/reg_numbers', async function (req, res) {
     const reg = _.upperCase(req.body.regNumber);
+    
     //const theNuMbers = await registration.enter(reg);
     // console.log(theNuMbers)
-    if (!reg) {
+if(reg.startsWith('CA ') || reg.startsWith('CY ') || reg.startsWith('CJ ')){
+    await registration.insert(reg);
+    var theNumbers = await registration.getReg();
+} else if (!reg) {
         req.flash('error', "Please enter your registration number");
     }
     // else if (theNuMbers) {
     //      req.flash('error', "You have already entered this registration number");
     //  }
-    else {
-        var regInsert = await registration.insert(reg);
-    }
-    const theNumbers = await registration.getReg();
+   
+    
 
     res.render('index', {
-        regInsert,
         numbers: theNumbers
     })
 
