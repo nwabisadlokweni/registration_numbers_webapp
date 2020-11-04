@@ -1,0 +1,82 @@
+<div class="row">
+    <h1><strong>Registration Numbers</strong></h1>
+
+    <div class="message"></div>
+
+    <div class="numbers"></div>
+
+    {{#if message}}
+    <div class="">{{message}}</div>
+    {{else}}
+    <div class="">
+        <p class='flash'> {{messages.error}}</p>
+    </div>
+    {{/if}}
+
+    {{!-- {{#if message}}
+    <div class="">{{message}}</div>
+    {{else}}
+    <div class="">
+        <p class='confirm'> {{messages.success}}</p>
+    </div>
+    {{/if}} --}}
+
+    {{#if confirm}}
+    <div class="confirm">
+    <p class="confirm">{{confirm.success}}</p>
+   </div> 
+   {{/if}}
+
+    <div class="textboxName">
+        <p>CY 123 456 CA 325-695 CJ 1235</p>
+        <form action="reg_numbers" method="POST">
+            <strong>Registration Number: </strong>
+            <input type="text" name="regNumber" class="regNum" placeholder="enter registration number">
+
+            <button type="submit" class="add">Add</button>
+        </form>
+    </div>
+
+    <br>
+
+    <div class="filter">
+        <form action="filter" method="POST">
+            <strong>Filter by towns: </strong>
+            <input type="radio" name="town" value="Select All">Select All
+            <input type="radio" name="town" value="CA">Cape Town
+            <input type="radio" name="town" value="CJ">Paarl
+            <input type="radio" name="town" value="CY">Bellville
+
+            <button type="submit" class="Show">Show</button>
+        </form>
+    </div>
+    <br>
+    <div>
+        <form action="/reset" method="GET">
+            <a href="/reset"></a>
+            <button type="submit" class="reset">Reset</button>
+        </form>
+    </div>
+
+    <hr>
+
+
+    {{!-- <div class="success"></div> --}}
+
+
+    {{!-- {{#if message}}
+    <div class="">{{success}}</div>
+    {{else}}
+    <div class="">
+        <p class='flash'> {{success.correct}}</p>
+    </div>
+    {{/if}} --}}
+
+    <div class="">
+        {{#each numbers}}
+        <ul class="reg">
+            {{this.reg}}
+        </ul>
+        {{/each}}
+    </div>
+</div>

@@ -15,9 +15,35 @@
 	padding: 1em;
 	
 }
+p {
+	text-indent: 50px;
+	text-align: justify;
+	letter-spacing: 3px;
+	color: thistle;
+  }
+  h1{
+	font-family: "Times New Roman", Times, serif;
+  }
 
 .flash {
+	text-indent: 50px;
+	text-align: justify;
+	letter-spacing: 3px;
 	color : red;
+}
+
+.confirm {
+	text-indent: 50px;
+	text-align: justify;
+	letter-spacing: 3px;
+	color: green;
+}
+
+.clear {
+	text-indent: 50px;
+	text-align: justify;
+	letter-spacing: 3px;
+	color: green;
 }
 
 .reg {

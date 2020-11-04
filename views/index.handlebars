@@ -1,5 +1,5 @@
 <div class="row">
-    <h1>Registration Numbers</h1>
+    <h1><strong>Registration Numbers</strong></h1>
 
     <div class="message"></div>
 
@@ -13,10 +13,17 @@
     </div>
     {{/if}}
 
+    <div class="resetSucceded"></div>
+
+    <div class="clear">
+        <p class="clear"></p>{{messages.resetSucceded}}</p>
+    </div>
+
     <div class="textboxName">
+        <p>CY 123 456 CA 325-695 CJ 1235</p>
         <form action="reg_numbers" method="POST">
             <strong>Registration Number: </strong>
-            <input type="text" name="regNumber" class="regNum" placeholder="eg: CAA 123-321">
+            <input type="text" name="regNumber" class="regNum" placeholder="enter registration number">
 
             <button type="submit" class="add">Add</button>
         </form>
@@ -36,19 +43,6 @@
         </form>
     </div>
 
-    <hr>
-
-    <br>
-
-    <div class="">
-        {{#each numbers}}
-        <ul class="reg">
-            {{this.reg}}
-        </ul>
-        {{/each}}
-    </div>
-
-    <br>
     <br>
 
     <div>
@@ -58,4 +52,27 @@
         </form>
     </div>
 
+    <hr>
+
+    <div class="success"></div>
+
+    <div class="confirm">
+        <p class="confirm"></p>{{messages.success}}</p>
+    </div>
+
+    <div class="">
+        {{#each numbers}}
+        <ul class="reg">
+            {{this.reg}}
+        </ul>
+        {{/each}}
+    </div>
 </div>
+
+<script>
+    setTimeout(function () {
+        document.querySelector(".flash").innerHTML = "";
+        document.querySelector(".confirm").innerHTML = "";
+        document.querySelector(".clear").innerHTML = ""
+    }, 3000);
+</script>

@@ -47,20 +47,30 @@ app.get('/', async function (req, res) {
 
 app.post('/reg_numbers', async function (req, res) {
     const reg = _.upperCase(req.body.regNumber);
-    
-    //const theNuMbers = await registration.enter(reg);
-    // console.log(theNuMbers)
-if(reg.startsWith('CA ') || reg.startsWith('CY ') || reg.startsWith('CJ ')){
-    await registration.insert(reg);
-    var theNumbers = await registration.getReg();
-} else if (!reg) {
+    var nwabisa = await registration.enter(reg);
+
+   if (!reg) {
         req.flash('error', "Please enter your registration number");
     }
-    // else if (theNuMbers) {
-    //      req.flash('error', "You have already entered this registration number");
-    //  }
-   
-    
+   else if (nwabisa.rowCount !== 0) {
+        req.flash('error', "Reg alredy exist");
+    }
+
+    else  {
+        (reg.startsWith('CA ') || reg.startsWith('CY ') || reg.startsWith('CJ '))
+        // console.log(nwabisa.rowCount !==0);
+        
+       
+        await registration.insert(reg);
+        var theNumbers = await registration.getReg();
+        req.flash('success', "You have successfully added a new registration number!");
+    } 
+     // if (reg.startsWith('CA ') || reg.startsWith('CY ') || reg.startsWith('CJ ')) {
+    //     await registration.insert(reg);
+    //     var theNumbers = await registration.getReg();
+    // } else if (!reg) {
+    //     req.flash('error', "Please enter your registration number");
+    // }
 
     res.render('index', {
         numbers: theNumbers
@@ -73,7 +83,7 @@ app.post('/filter', async function (req, res) {
     // const numberPlate = req.params.numberPlate;
     var towns = req.body.town
     //console.log(towns)
-    if (!towns && "") {
+    if (!towns) {
         req.flash('error', 'Please select a town');
     }
     else {
@@ -87,6 +97,7 @@ app.post('/filter', async function (req, res) {
 })
 
 app.get('/reset', async function (req, res) {
+    req.flash('resetSucceded', 'You have successfully reseted your registrations');
     await registration.reset()
     res.render('index');
 })

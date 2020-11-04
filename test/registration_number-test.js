@@ -16,23 +16,27 @@ describe('The basic database web app', function () {
     beforeEach(async function () {
         // clean the tables before each test run
         await pool.query("delete from regNumbers;");
-        //await pool.query("delete from towns;");
     });
 
-    it('should insert registration numbers in the db test', async function () {
+    it('should insert registration numbers in the db', async function () {
         // //the Factory Function is called regFactory
         let registration_number = regFactory(pool);
-var regNumber = await registration_number.display();
+
         await registration_number.insert("CA 123");
-        // await registration_number.insert("Zola");
-        // await registration_number.insert("Unalo");
-        // await registration_number.insert("Sino");
-        // await registration_number.insert("Makho");
-        // await registration_number.insert("Andre");
+     
+        assert.deepEqual([ { reg: 'CA 123' } ], await registration_number.selectReg());
+    });
 
-        
+    it('should be able to reset registration numbers on the database', async function () {
+        // the Factory Function is called greetFactory
+        let registration_number = regFactory(pool);
 
-        assert.equal("CA 123", regNumber);
+
+        await registration_number.reset("CA 123-758");
+        await registration_number.reset("CJ 555-798");
+        await registration_number.reset("CY 555-694");
+ var number = await registration_number.getReg()
+        assert.equal(0, number);
     });
 
     after(function () {
