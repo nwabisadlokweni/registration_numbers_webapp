@@ -19,23 +19,62 @@ describe('The basic database web app', function () {
     });
 
     it('should insert registration numbers in the db', async function () {
-        // //the Factory Function is called regFactory
+     //the Factory Function is called regFactory
         let registration_number = regFactory(pool);
 
         await registration_number.insert("CA 123");
-     
-        assert.deepEqual([ { reg: 'CA 123' } ], await registration_number.selectReg());
+
+        assert.deepEqual([{ reg: 'CA 123' }], await registration_number.selectReg());
     });
 
-    it('should be able to reset registration numbers on the database', async function () {
+    it('should filter registration numbers from Cape Town', async function () {
+         // //the Factory Function is called regFactory
+        let registration_number = regFactory(pool);
+
+         await registration_number.insert("CA 123");
+
+         assert.deepEqual([{ reg: 'CA 123' }], await registration_number.displayFilter('CA'));
+     });
+
+    it('should filter registration numbers from Bellville', async function () {
+        // //the Factory Function is called regFactory
+       let registration_number = regFactory(pool);
+
+        await registration_number.insert("CY 123");
+
+        assert.deepEqual([{ reg: 'CY 123' }], await registration_number.displayFilter('CY'));
+    });
+
+    it('should filter registration numbers from  Paarl', async function () {
+        // //the Factory Function is called regFactory
+       let registration_number = regFactory(pool);
+
+        await registration_number.insert("CJ 123");
+
+        assert.deepEqual([{ reg: 'CJ 123' }], await registration_number.displayFilter('CJ'));
+    });
+
+    it('should insert multiple registration numbers to the db', async function () {
+        // //the Factory Function is called regFactory
+       let registration_number = regFactory(pool);
+
+        await registration_number.insert("CA 123");
+        await registration_number.insert("CJ 123");
+        await registration_number.insert("CY 123");
+
+        assert.deepEqual([ { reg: 'CA 123' }, { reg: 'CJ 123' }, { reg: 'CY 123' } ]
+        , await registration_number.selectReg());
+    });
+
+    it('should be able to reset registration numbers from the database', async function () {
         // the Factory Function is called greetFactory
         let registration_number = regFactory(pool);
 
 
-        await registration_number.reset("CA 123-758");
-        await registration_number.reset("CJ 555-798");
+        await registration_number.reset("CA 158");
+        await registration_number.reset("CJ 555 798");
         await registration_number.reset("CY 555-694");
- var number = await registration_number.getReg()
+        var number = await registration_number.getReg()
         assert.equal(0, number);
     });
 
