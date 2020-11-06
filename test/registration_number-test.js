@@ -41,8 +41,12 @@ describe('The basic database web app', function () {
        let registration_number = regFactory(pool);
 
         await registration_number.insert("CY 123");
+        await registration_number.insert("CY 152");
+        await registration_number.insert("CA 552");
 
-        assert.deepEqual([{ reg: 'CY 123' }], await registration_number.displayFilter('CY'));
+
+        assert.deepEqual( [ { reg: 'CY 123' }, { reg: 'CY 152' } ]
+        , await registration_number.displayFilter('CY'));
     });
 
     it('should filter registration numbers from  Paarl', async function () {
